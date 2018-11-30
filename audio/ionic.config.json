@@ -1,7 +1,0 @@
-{
-  "name": "audio",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular"
-}
