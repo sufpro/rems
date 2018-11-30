@@ -1,0 +1,79 @@
+<!--
+  Generated template for the MypointscardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Shops</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+		<div style="border-bottom: 1px solid blue;">
+		<ion-label style="font-weight: bold; font-size: 20px;">Search Shop</ion-label>
+		<ion-item  no-padding>
+		  <ion-label>Select Location : </ion-label>
+			<ion-select [(ngModel)]="shopLocation" okText="Search" cancelText="Cancel" (ionChange)="getShops()">
+				<ion-option *ngFor="let loc of shopLocations;">{{loc.title}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item  no-padding>
+	<ion-toolbar id="searchShopTB">
+      <ion-searchbar id="sb1" #sb [(ngModel)]="searchTerm" [formControl]="searchControl" placeholder="Enter Shop Name" (ionClear)="resetFilter($event)" no-padding></ion-searchbar>
+
+        <ion-buttons right >
+            <button ion-button icon-only clear icon-only (click)="getShops()">
+                <ion-icon name="md-search"></ion-icon>
+            </button>
+        </ion-buttons>
+</ion-toolbar>
+		</ion-item>
+		</div>
+		<div *ngIf="searchState===0" class="spinner-container">
+			<ion-label><ion-spinner></ion-spinner>Searching...</ion-label>
+		</div>
+	    <div *ngIf="searchState===1">
+		    <ion-list>
+		        <ion-item *ngFor="let shop of shops" (click)="selectShop(shop)">
+		            {{shop.title}}, {{shop.Address}}
+		        </ion-item>
+		    </ion-list>
+		</div>
+		<div *ngIf="searchState===2">
+			<ion-label text-wrap>{{searchResultMessage}}</ion-label>
+		</div>
+
+	<div *ngIf="searchState===3">
+   <ion-card style="background-color: red;border-radius: 10px 10px 0px 0px;">
+    <ion-card-content no-padding >
+    <ion-item style="border-bottom: 1px solid grey;">
+      <ion-icon style="font-size: 20px; float: right !important;" (click)="favIconClicked(shop)" [name]="shop.Favourite < 1000 ? 'star' : 'star-outline'">{{shop.Favourite < 1000 ? shop.Favourite : ''}}</ion-icon>
+      <img [src]="shop.imageUrl" (click)="shopTapped(shop)" />
+      <h2 class="card-title">
+        {{shop.title}}
+      </h2>
+      <p>Contact : {{shop.Contact}}</p>
+    </ion-item>
+    <ion-item no-padding style="border-bottom: 1px solid grey;">
+      <div style="display: flex;  justify-content: center;">
+        <button ion-button icon-left (click)="newShop('shop')">Add Shop</button>
+        <button ion-button icon-left (click)="newShop('purchase')">Add Shop and Purchase</button>
+      </div>
+    </ion-item>
+    <ion-item>
+        Minimum Points Redeem <ion-badge item-end>{{shop.MinPointsRedeem}}</ion-badge>
+    </ion-item>
+    <ion-item>
+        Shop Distance 
+        <ion-badge item-end>{{shop.ShopDistance}}</ion-badge>
+    </ion-item>
+  </ion-card-content>
+  </ion-card>
+</div>
+
+</ion-content>

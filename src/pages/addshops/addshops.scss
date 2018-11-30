@@ -1,0 +1,21 @@
+page-addshops {
+	#sb1
+	{	.searchbar-search-icon 
+		{ 
+			display:none; width:0; height:0; 
+		}
+		.searchbar-input 
+		{    
+			padding: 10px;
+			background: white; 
+		}
+	}
+
+	#searchShopTB{
+		.toolbar-background 
+		{
+		    border-color: #b2b2b2;
+		    background: lightgrey;
+		}
+	}
+}

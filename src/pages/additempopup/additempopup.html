@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+     <ion-title style="padding:5px">{{_heading}}</ion-title> 
+ </ion-toolbar>
+</ion-header>
+<ion-content no-padding  style="display: flex;">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item no-padding>
+          <ion-input placeholder="Enter Item Name"></ion-input></ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item no-padding>
+          <ion-input id="txt_weight" placeholder="Enter Weight" type="number"></ion-input>
+          <ion-select>
+            <ion-option value="kg" selected>kg</ion-option>
+            <ion-option value="gms">gm</ion-option>
+            <ion-option value="small">small</ion-option>
+            <ion-option value="big">big</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item no-padding>
+          <ion-input placeholder="Enter Peice" style="width:68%;" type="number" min="0" max="99"></ion-input>
+          <ion-select>
+            <ion-option value="pc" selected>pc</ion-option>
+            <ion-option value="pkt">pkt</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item no-padding>
+          <div style="display: flex;justify-content: center;"><button ion-button (click)="dismiss()">Add to Cart</button></div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

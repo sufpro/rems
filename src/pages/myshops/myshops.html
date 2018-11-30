@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-buttons left>
+      <div style="text-align: center">
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+      </div>
+      <div class="signinname">Amit Kakkar</div>
+    </ion-buttons>
+    <ion-title>
+      My Page
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="alert"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <ion-icon name="settings"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+  <ion-grid no-padding>
+    <ion-row style="align-items: center;justify-content: center;height:40px;background-color: lightgrey;color:darkviolet;border-bottom: 10px;">
+      <ion-col style="text-align: left;" col-8>
+        <ion-item style="background-color: lightgrey;color:darkviolet;">
+          Shop Zone
+      </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item style="background-color: lightgrey;color:darkviolet;">
+          <div style="text-align: center !important;"><ion-icon name="basket"></ion-icon></div>
+          <div style="text-align: right !important;">Add Shops</div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-header> 
+
+
+<ion-content>
+<!--
+<ion-item  no-padding style="border-bottom: 1px solid blue;" *ngIf="showSortOrder">
+  <ion-label>Sorting Order</ion-label>
+  <ion-select [(ngModel)]="sortOrder_Default" (ionChange)="sortCards();">
+    <ion-option *ngFor="let sortOrder of sortOrders">{{sortOrder.sortLabel}}</ion-option>
+  </ion-select>
+</ion-item>
+-->
+<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-item no-lines no-padding class="shopHead">
+  <ion-grid no-padding style="padding-top: 10px;">
+
+ <!--Shop-1 - Start-->
+ <ion-item no-padding  *ngFor="let shop of shops;"> 
+   <ion-row style="box-shadow: 0 8px 6px -6px black;background-color: lightgrey;color:darkviolet">
+      <ion-col col-1>
+        <div style="text-align: center;"><ion-icon name="star"></ion-icon></div>
+      </ion-col>
+      <ion-col col-5><div  style="text-align: left;">{{shop.title}}</div></ion-col>
+      <ion-col col-2><div style="text-align: center;">{{shop.ShopDistance}}</div></ion-col>
+      <ion-col col-4>
+        <div style="text-align: right;"><ion-icon name="call"></ion-icon>{{shop.Contact}}</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 10px;color: darkviolet;">
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;">
+        <round-progress [current]="shop.PointsCollected" [max]="shop.MinPointsRedeem" [stroke]="pointsProgress.stroke" [radius]="pointsProgress.radius" [semicircle]="pointsProgress.semicircle" [rounded]="pointsProgress.rounded"
+          [responsive]="pointsProgress.responsive" [clockwise]="pointsProgress.clockwise" [color]="pointsProgress.gradient ? 'url(#gradient)' : pointsProgress.color" [background]="pointsProgress.background"
+          [duration]="pointsProgress.duration" [animation]="pointsProgress.animation" [animationDelay]="pointsProgress.animationDelay"></round-progress>
+      </ion-col>
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;">
+        <round-progress [current]="shop.TotalPurchase" [max]="shop.TotalPurchase" [stroke]="purchaseProgress.stroke" [radius]="purchaseProgress.radius" [semicircle]="purchaseProgress.semicircle" [rounded]="purchaseProgress.rounded"
+          [responsive]="purchaseProgress.responsive" [clockwise]="purchaseProgress.clockwise" [color]="purchaseProgress.gradient ? 'url(#gradient)' : purchaseProgress.color" [background]="purchaseProgress.background"
+          [duration]="purchaseProgress.duration" [animation]="purchaseProgress.animation" [animationDelay]="purchaseProgress.animationDelay"></round-progress>
+      </ion-col>
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;vertical-align: center;font-size:50px" (click)="placeorder(shop)">
+        <ion-icon name="cart"></ion-icon>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row style="color: darkviolet;">
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;">
+        <div style="display: block;text-align: center;font-size: 10px !important;">
+          {{shop.PointsCollected}} Points Earned<hr> {{shop.MinPointsRedeem}} Points Needed
+        </div>
+      </ion-col>
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;">
+        <div style="display: block;text-align: center;font-size: 10px !important;">
+          {{shop.TotalPurchase}} Total Purchase
+        </div>
+      </ion-col>
+      <ion-col col-4 style="display: flex;align-items: center;justify-content: center;">
+        <div class="text" style="display: block;text-align: center;font-size: 10px !important;" (click)="placeorder(shop)">
+              New Order
+            </div>
+      </ion-col>      
+    </ion-row>
+
+</ion-item>
+ <!--Shop-1 - End-->
+  </ion-grid>
+
+</ion-item>

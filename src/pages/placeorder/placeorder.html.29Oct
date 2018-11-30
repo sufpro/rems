@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Place Order</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<!--
+<ion-fab right top edge>
+  <button ion-fab (click)="shoppingCartClicked()">
+    <ion-icon name="cart">
+    	<ion-badge id="notifications-badge" color="danger">{{this.global.totCartItems}}</ion-badge>
+    </ion-icon>
+  </button>
+</ion-fab>
+<ion-fab left middle edge>
+    <button ion-fab (click)="addItemClicked()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+-->
+<ion-fab right top edge>
+    <button ion-fab color="light"><ion-icon name="arrow-dropdown"><ion-badge id="notifications-badge" color="danger">{{this.global.totCartItems}}</ion-badge></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="shoppingCartClicked()"><ion-icon name="cart"><ion-badge id="notifications-badge" color="danger">{{this.global.totCartItems}}</ion-badge></ion-icon></button>
+      <button ion-fab (click)="addItemClicked()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+  
+<ion-item no-padding>
+  <ion-card no-padding *ngFor="let purchaseItem of global.purchaseItems; let index = index" style="background-color: red;border-radius: 10px 10px 0px 0px;">
+    <!--<ion-item no-padding style="border-bottom: 1px solid green;">-->
+    <ion-card-content no-padding>
+
+
+    <ion-item no-padding style="border-bottom: 1px solid grey;padding: 0 !important;margin:0 !important;" style="background-color: slategrey;">
+      <ion-grid no-padding>
+        <ion-row no-padding style="color:white;">
+          <ion-col col-10 no-padding>
+            <span>
+              <h2 style="color:white">{{purchaseItem.category}}</h2>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+
+  <ion-item no-padding *ngFor="let slide of purchaseItem.items" style="background-color: white;">
+    <ion-grid no-padding>
+      <ion-row >
+        <ion-col no-padding col>{{slide.title}}</ion-col>
+        <ion-col no-padding col-3 no-padding style="border:solid;border-radius: 2px 2px 2px 2px;border-color: orange;border-width: 1px" *ngFor="let measures of slide.measures">
+<!--
+{
+  id: 1014,
+  title: 'Powder',
+  measures: [{defaultUnit: 'gm' , qty: 1 , otherUnits:['kg','gm','big','small']},{defaultUnit: 'pc' , qty: 1 , otherUnits:['pc','pkt']}],
+  slideBGColor: ''
+}
+              -->
+
+              <ion-row no-padding>
+                <ion-col no-padding>
+                  <div style="display: flex;justify-content: space-evenly;">
+                    <button no-padding style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(slide,measures,1)">+</button>
+                    {{measures.qty}}
+                    <button no-padding style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(slide,measures,-1)">-</button>
+                </div>
+                </ion-col>
+              </ion-row>
+              <ion-row no-padding>
+                <ion-col no-padding>
+                  <ion-item no-padding style="display: flex;justify-content: center;">
+                  <ion-select no-padding [(ngModel)]="measures.defaultUnit" (ionChange)="setDefaultUnit(measures)">
+                    <ion-option no-padding *ngFor="let measure of measures.otherUnits">{{measure}}</ion-option>
+                  </ion-select>
+                </ion-item>
+                </ion-col>
+              </ion-row>
+<!--
+                <ion-item no-padding style="text-align: center;">
+                  <span no-padding>
+                    <button no-padding style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(measures,1)">+</button>
+                  </span>
+                  <span no-padding>{{measures.qty}}</span>
+                  <span>
+                    <button style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(measures,-1)">-</button>
+                  </span>
+                </ion-item>
+
+                <ion-item no-padding>
+                  <ion-select no-padding [(ngModel)]="measures.defaultUnit" (click)="testF(measures)">
+                    <ion-option no-padding *ngFor="let measure of measures.otherUnits">{{measure}}</ion-option>
+                  </ion-select>
+                </ion-item>
+-->                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+  </ion-item>
+
+
+
+  </ion-card-content>
+  </ion-card>
+</ion-item>
+</ion-content>
+

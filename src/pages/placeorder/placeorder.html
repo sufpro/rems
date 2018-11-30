@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Place Order</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-fab right top edge>
+    <button ion-fab color="light"><ion-icon name="arrow-dropdown"><ion-badge id="notifications-badge" color="danger">{{this.global.orderArr.length}}</ion-badge></ion-icon></button>
+    <ion-fab-list side="down">
+      <button ion-fab (click)="shoppingCartClicked()"><ion-icon name="cart"><ion-badge id="notifications-badge" color="danger">{{this.global.orderArr.length}}</ion-badge></ion-icon></button>
+      <button ion-fab (click)="addItemClicked()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+<ion-item no-lines no-padding class="shopHead">
+  <ion-grid no-padding style="padding-top: 10px;">
+   <!--Shop-1 - Start-->
+    <ion-item no-padding>
+      <ion-row style="box-shadow: 0 8px 6px -6px black;background-color: lightgrey;color:darkviolet">
+        <ion-col col-1>
+          <div style="text-align: center;"><ion-icon name="star"></ion-icon></div>
+        </ion-col>
+        <ion-col col-5><div  style="text-align: left;">{{shop.title}}</div></ion-col>
+        <ion-col col-2><div style="text-align: center;">{{shop.ShopDistance}}</div></ion-col>
+        <ion-col col-4>
+          <div style="text-align: right;"><ion-icon name="call"></ion-icon>{{shop.Contact}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+</ion-item>
+
+<div *ngFor="let purchaseItems of global.purchaseItems;let ctr=index;">
+  <ion-card padding style="border-radius: 10px 10px 10px 10px;" *ngFor="let slide of purchaseItems.items;let ctr1=index;">
+    <ion-card-content no-padding>
+  <ion-item no-padding style="font-size: 20px  !important;color:darkviolet !important">
+    <ion-grid no-padding item-content>
+      <ion-row no-padding>
+      
+    <ion-col no-padding style="border-radius: 10px 10px 10px 10px;display: flex;align-items: center;justify-content: center;" [ngStyle]="{'background-color': slide.slideBGColor}">
+      <div>
+        <div style="font-weight: bold;text-align : center !important">Price</div>
+        <div style="text-align: center !important;">{{(slide.selectedPrice =='' ? 'Not Available' : slide.selectedPrice + 'Rs.')}}</div>
+      </div>
+    </ion-col>
+
+
+    <ion-col col-8 no-padding>
+            <ion-item no-padding>
+              <ion-label no-padding style="color:darkviolet !important;padding-left: 10px;">{{slide.title}}</ion-label>
+              <ion-checkbox item-right [(ngModel)]="slide.addedToCart" (ionChange)="setSelected(slide)"></ion-checkbox>
+          </ion-item>
+<hr style="
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    padding:0;
+    width: 100%;">
+          <ion-item no-padding>
+                      <ion-select [(ngModel)]="slide.selectedUnit" (ionChange)= "setSelected(slide)" no-padding style="width:100px" [disabled]=!slide.addedToCart>
+            <ion-option *ngFor="let i of slide.derivedUnits">{{i.unit}}</ion-option>
+          </ion-select>
+          </ion-item>
+    </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-card-content>
+  </ion-card>
+</div>
+
+</ion-content>
+<ion-footer style="height: 8%;">
+    <ion-row  style="height: 100%;">
+      <ion-col col-6 no-padding style="background-color: darkblue;color: white;padding:5px; height: 100%;width: 100%;;font-size: 20px;">
+        <div style="text-align: center">
+          Price
+        </div>
+        <div style="text-align: center">
+          {{(this.global.cartTotal==0 ? (this.global.orderArr.length < 1 ? '-Add items to cart-' : '-Not available-') : 'INR ' + this.global.cartTotal)}}
+        </div>
+        </ion-col>
+      <ion-col  no-padding (click)="shoppingCartClicked()">
+        <div style="background-color: blue;color: white;padding:5px; height: 100%;width: 100%;display: flex;align-items: center;justify-content: space-around;font-size: 20px;">
+               View Cart <ion-badge id="notifications-badge" color="danger">{{this.global.orderArr.length}}</ion-badge> <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-footer>

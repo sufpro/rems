@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-tabs tabsPlacement="top">
+  <ion-tab [tabsHideOnSubPages]="true" [rootParams]="data" [root]="tab1Root" tabTitle="My Shops" tabIcon="appstore"></ion-tab>
+  <ion-tab [tabsHideOnSubPages]="true" [rootParams]="data" [root]="tab3Root" tabTitle="My Offers" [tabBadge]="getMyOffersCount()" tabIcon="star"></ion-tab>
+  <ion-tab [tabsHideOnSubPages]="true" [rootParams]="data" [root]="tab2Root" tabTitle="Add Shops" tabIcon="basket"></ion-tab>
+</ion-tabs>
+</ion-content>

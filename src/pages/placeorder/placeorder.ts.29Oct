@@ -1,0 +1,131 @@
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Slides } from 'ionic-angular';
+import { GlobalProvider } from '../../providers/global/global';
+import { PopoverController } from 'ionic-angular';
+
+import { AccordionListComponent } from '../../components/accordion-list/accordion-list';
+import { AddToCartComponent } from '../../components/addtoCart/addtoCart';
+
+import { ShoppingCartPage } from '../shoppingcart/shoppingcart';
+import { Data } from '../../providers/data/data';
+import { AddItemPopupPage } from '../additempopup/additempopup';
+
+
+@Component({
+  selector: 'page-placeorder',
+  templateUrl: 'placeorder.html'
+})
+export class PlaceOrderPage {
+  @ViewChild('slider') slider: Slides;
+
+  selected_weight: string = '';
+  selected_peice: string = '';
+  input_peice: string = '1';
+  input_weight: string = '';
+  constructor(
+    public navCtrl: NavController,
+    public global: GlobalProvider,
+    public popoverCtrl: PopoverController,
+    public dataService: Data
+  ) {
+      this.global.orderArr = [];
+      this.global.totCartItems = this.global.orderArr.length;
+      this.global.measures = [];
+      this.global.purchaseItems = [];
+
+      this.global.measures = this.dataService.getMeasures();
+      this.global.purchaseItems = this.dataService.getPurchaseItems();
+
+      /*
+      console.log(this.purchaseItems)
+      for (let i = 0; i < 20; i++) {
+        this.slds_top10.push(this.slds_top10[i % 4]);
+        this.slds_fruits.push(this.slds_fruits[i % 4]);
+        this.slds_vegies.push(this.slds_vegies[i % 4]);
+        this.slds_cosmetics.push(this.slds_cosmetics[i % 4]);
+      }
+      */
+    }
+  ionViewDidLoad() {
+    this.selected_weight = "kgs";
+    this.selected_peice = "packet";
+    this.input_weight = "1";
+    this.input_peice = "";
+  }
+
+  ngAfterViewInit() {
+    if(this.slider != undefined)
+      this.slider.freeMode = true;
+      console.log('aa')
+  }
+
+
+//var resultArray = this.global.searchByKey(this.shopssortorders, "sortLabel", this.shopssortorder);
+  itemClicked(ev)
+  {
+    //console.log((ev.id != undefined) && (ev.id.toString().length > 0))
+    if((ev.id != undefined) && (ev.id.toString().length > 0))
+    {
+      let _result = '';
+      _result = this.addRemoveToCart(ev);
+      ev.slideBGColor = '';
+      if(_result == "added") {
+        ev.slideBGColor= 'yellow';  
+      }
+    }
+  }
+
+  addRemoveToCart(_item) {
+   var resultArray = [];
+      resultArray = this.global.searchByKey(this.global.orderArr, "id", _item.id);
+      if( (resultArray === null) || (resultArray.length === 0) ) {
+        this.global.orderID++;
+        this.global.orderArr.push({orderID: this.global.orderID,id: _item.id, title: _item.title, qty: 1, measures: _item.measures});
+        this.global.totCartItems = this.global.orderArr.length;
+        _item.addedToCart = true;
+        return "added"
+      }
+      else
+      {
+        this.global.orderArr = this.global.searchAndDelete(this.global.orderArr, "id", _item.id);
+        this.global.totCartItems = this.global.orderArr.length;
+        _item.addedToCart = false;
+      }
+  }
+
+  addItemClicked() {
+    let popover = this.popoverCtrl.create(AddItemPopupPage, this.dataService.manualOrderTemplate);
+    popover.present();
+
+
+     popover.onDidDismiss(data => {
+      console.log(data);
+      /*if(data!=null){
+         this.selectedData = data
+      }*/
+    })
+
+
+  }  
+
+    setEditable(ev) {
+        ev.disabled = !ev.disabled
+    }
+    
+  shoppingCartClicked() {
+    this.navCtrl.push(ShoppingCartPage, {orderArr : this.global.orderArr});
+  }
+  setQty(_item,measures,num) {
+    measures.qty = measures.qty + num;
+    if(measures.qty <= 0){
+      measures.qty=0;
+      if(_item.addedToCart) this.addRemoveToCart(_item);  
+      return;
+    } 
+    if(!_item.addedToCart) this.addRemoveToCart(_item);
+  }
+
+  setDefaultUnit(measures) {
+
+  }
+}

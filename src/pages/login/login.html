@@ -1,0 +1,25 @@
+<ion-content no-padding  style="display: flex; background: url('assets/imgs/loginpage.jpg') repeat center fixed;     background-size: cover;">
+       <ion-row>
+        <ion-col no-padding>
+          <ion-list inset >
+       <div >            
+            <ion-item>
+              <ion-input type="text" placeholder="Email" name="email"  required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="password" placeholder="Password" name="password" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <button ion-button class="submit-btn" full (click)="login()">Login</button>
+            </ion-item>
+
+            <ion-item>
+              <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
+            </ion-item>
+                </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+</ion-content>

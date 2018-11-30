@@ -1,0 +1,56 @@
+<!--<div *ngIf="state==='showAdd'" (click)="setState()" style="text-align:center;width:40%;border: solid;border-color: orange;border-radius: 10px 10px 10px 10px;">Add</div>-->
+<ion-grid no-padding>
+	<ion-row no-padding >
+		<ion-col no-padding style="text-align:right"> 
+			<label class="switch">
+			  <input type="checkbox" (click)="setState()">
+			  <span class="slider round"></span>
+			</label>
+		</ion-col>
+	</ion-row>
+
+	<ion-row no-padding *ngIf="showQty === true" style="border:solid;border-color: orange;border-radius: 10px 10px 10px 10px;width: 130px;">
+		<ion-col no-padding *ngFor="let measures of tmpTemplate.measures; let unitNo = index" style="margin-right:2px;"> 
+			<ion-row no-padding>
+				<ion-col no-padding>
+					<div no-padding>
+						<span no-padding>
+							<button no-padding style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(measures,1)">+</button>
+						</span>
+						<span no-padding>{{measures.qty}}</span>
+						<span no-padding>
+							<button no-padding style="width:15px;height: 15px;text-align: center;vertical-align: middle;" ion-button (click)="setQty(measures,-1)">-</button>
+						</span>
+					</div>
+				</ion-col>
+			</ion-row>
+
+			<!--
+				<ion-row no-padding style="height:17px;">
+						<ion-col no-padding>
+							<button no-padding style="width:15px;height: 15px;text-align: center;" ion-button (click)="setQty(measures,1)">+</button>
+						</ion-col>
+					</ion-row>
+					<ion-row no-padding style="height:17px;">
+						<ion-col no-padding>
+							<button no-padding style="width:15px;height: 15px;text-align: center;" ion-button (click)="setQty(measures,-1)">-</button>
+						</ion-col>
+					</ion-row>
+
+
+				<ion-col style="text-align: center;font-size: 15px;" no-padding>{{measures.qty}}</ion-col>
+				<ion-col style="text-align: center;color:red;font-size: 15px;" no-padding>
+					<ion-row no-padding>
+						<ion-col no-padding><button ion-button>+</button></ion-col>
+					</ion-row>
+					<ion-row no-padding>
+						<ion-col no-padding><button ion-button>+</button></ion-col>
+					</ion-row>
+				</ion-col>
+			-->
+			<ion-row no-padding>
+				<ion-col style="text-align: center;" no-padding>{{measures.defaultUnit}}</ion-col>
+			</ion-row>
+		</ion-col>
+	</ion-row>
+</ion-grid>
